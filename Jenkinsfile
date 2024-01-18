@@ -28,7 +28,7 @@ pipeline {
                     sh 'docker run -e XDEBUG_MODE=coverage $IMAGE_NAME:$IMAGE_TAG php vendor/bin/phpunit --coverage-html=coverage tests'
 
                     // Archive the coverage report as a build artifact
-                    archiveArtifacts artifacts: 'tests/coverage/**/*', allowEmptyArchive: true
+                    archiveArtifacts artifacts: 'coverage/**/*', allowEmptyArchive: true
                 }
             }
         } 
