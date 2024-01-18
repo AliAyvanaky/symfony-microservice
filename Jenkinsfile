@@ -62,22 +62,16 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run PHPUnit with JUnit output
-                    sh 'docker run -e XDEBUG_MODE=coverage $IMAGE_NAME:$IMAGE_TAG php vendor/bin/phpunit --log-junit=tests/junit-report.xml tests'
+                    // Run PHPUnit with Clover code coverage output
+                    sh 'docker run -e XDEBUG_MODE=coverage $IMAGE_NAME:$IMAGE_TAG php vendor/bin/phpunit --coverage-clover=coverage/clover.xml tests'
 
-                    // Archive the JUnit test results as build artifacts
-                    archiveArtifacts artifacts: 'tests/junit-report.xml', allowEmptyArchive: true
+                    // Archive the Clover code coverage report as a build artifact
+                    archiveArtifacts artifacts: 'coverage/clover.xml', allowEmptyArchive: true
 
-                    // Publish JUnit test results
-                    junit 'tests/junit-report.xml'
+                    // Publish the Clover code coverage report to Jenkins
+                    step([$class: 'CloverPublisher', cloverReportDir: 'coverage', cloverReportFileName: 'clover.xml'])
                 }
             }
-        }
-    }
-
-    post {
-        always {
-            sh 'docker kill playwright || true'
         }
     }
 }
