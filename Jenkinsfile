@@ -74,4 +74,11 @@ pipeline {
             }
         }
     }
+
+        post {
+        always {
+            sh 'docker kill playwright || true'
+            junit 'tests/junit-report.xml'
+    } //always
+  } //post
 }
