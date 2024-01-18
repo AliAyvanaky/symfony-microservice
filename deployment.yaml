@@ -56,7 +56,7 @@ spec:
     - host: 7244ee91331c.websh.mylabserver.com
       http:
         paths:
-          - path: /sym
+          - path: /microservice
             pathType: Prefix
             backend:
               serviceName: symfony-service
