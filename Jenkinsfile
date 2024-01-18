@@ -67,7 +67,7 @@ pipeline {
                     sh 'docker run -e XDEBUG_MODE=coverage $IMAGE_NAME:$IMAGE_TAG php vendor/bin/phpunit --coverage-html=coverage tests'
 
                     // Check if coverage report exists in the 'coverage' directory
-                    def coverageExists = sh(script: 'docker run -e XDEBUG_MODE=coverage $IMAGE_NAME:$IMAGE_TAG [ -d coverage ] && echo "true" || echo "false"', returnStatus: true).trim()
+                    def coverageExists = sh(script: 'docker run -e XDEBUG_MODE=coverage $IMAGE_NAME:$IMAGE_TAG [ -d coverage ] && echo true || echo false', returnStatus: true).trim()
 
                     // Archive the coverage report as a build artifact
                     if (coverageExists == 'true') {
@@ -80,4 +80,5 @@ pipeline {
         }
     }
 }
+
 
