@@ -62,14 +62,14 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run PHPUnit with code coverage and JUnit output
-                    sh 'docker run -e XDEBUG_MODE=coverage $IMAGE_NAME:$IMAGE_TAG php vendor/bin/phpunit --coverage-html=coverage --log-junit=phpunit-results.xml tests'
-                    
-                    // Archive the coverage report and JUnit test results as build artifacts
-                    archiveArtifacts artifacts: ['coverage/**/*', 'phpunit-results.xml'], allowEmptyArchive: true
+                    // Run PHPUnit with JUnit output
+                    sh 'docker run -e XDEBUG_MODE=coverage $IMAGE_NAME:$IMAGE_TAG php vendor/bin/phpunit --log-junit=tests/junit-report.xml tests'
+
+                    // Archive the JUnit test results as build artifacts
+                    archiveArtifacts artifacts: 'tests/junit-report.xml', allowEmptyArchive: true
 
                     // Publish JUnit test results
-                    junit 'phpunit-results.xml'
+                    junit 'tests/junit-report.xml'
                 }
             }
         }
