@@ -21,6 +21,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy the application files to the container
 COPY . /var/www/html
 
+# Install and enable Xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Configure Xdebug for code coverage
+RUN echo 'xdebug.mode=coverage' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+
 # Install Symfony dependencies
 RUN composer install --no-interaction --no-ansi --optimize-autoloader
 
