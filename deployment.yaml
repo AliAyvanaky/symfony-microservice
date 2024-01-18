@@ -3,7 +3,6 @@ kind: Namespace
 metadata:
   name: symfony-microservice
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
