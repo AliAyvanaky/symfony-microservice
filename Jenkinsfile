@@ -63,7 +63,7 @@ pipeline {
             steps {
                 script {
                     // Run PHPUnit with Clover code coverage output
-                    sh 'docker run -e XDEBUG_MODE=coverage $IMAGE_NAME:$IMAGE_TAG php vendor/bin/phpunit --coverage-clover=coverage/clover.xml tests'
+                    sh 'docker run -e XDEBUG_MODE=coverage $IMAGE_NAME:$IMAGE_TAG php vendor/bin/phpunit --coverage-clover=/var/www/html/coverage/clover.xml tests'
 
                     // Archive the Clover code coverage report as a build artifact
                     archiveArtifacts artifacts: 'coverage/clover.xml', allowEmptyArchive: true
@@ -75,3 +75,4 @@ pipeline {
         }
     }
 }
+
