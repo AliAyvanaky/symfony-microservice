@@ -53,7 +53,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'kuber', variable: 'KUBECONFIG')]) {
                     script {
-                        sh "kubectl --kubeconfig=$KUBECONFIG get ns --validate=false"
+                        sh "kubectl --kubeconfig=$KUBECONFIG get ns"
                         sh "kubectl --kubeconfig=$KUBECONFIG apply -f ./deployment.yaml --validate=false"
                     }
                 }
