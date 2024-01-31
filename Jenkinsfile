@@ -1,7 +1,7 @@
 pipeline {
-    agent {
-        label 'docker'
-    }
+    // agent {
+    //     label 'docker'
+    // }
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
